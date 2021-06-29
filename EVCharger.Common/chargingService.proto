@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+service Charging {
+  rpc CanStartCharging (ChargingRequest) returns (ChargingResponse) {}
+}
+
+message ChargingRequest {
+  string chargerID = 1;
+  string userID = 2;
+}
+
+message  ChargingResponse {
+  bool canStartCharging = 1;
+  string sessionID = 2;
+}
