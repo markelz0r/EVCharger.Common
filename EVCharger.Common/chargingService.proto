@@ -2,6 +2,7 @@ syntax = "proto3";
 
 service Charging {
   rpc StartCharging (ChargingRequest) returns (ChargingResponse) {}
+  rpc StopCharging (StopChargingRequest) returns (StopChargingResponse) {}
 }
 
 message ChargingRequest {
@@ -13,4 +14,14 @@ message  ChargingResponse {
   bool canStartCharging = 1;
   string errorMessage = 2;
   string sessionID = 3;
+}
+
+message StopChargingRequest {
+  string chargerID = 1;
+  string sessionID = 2;
+}
+
+message StopChargingResponse {
+  bool isSuccess = 1;
+  string errorMessage = 2;
 }
