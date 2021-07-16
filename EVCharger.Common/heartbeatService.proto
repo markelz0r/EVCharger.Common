@@ -1,17 +1,19 @@
 syntax = "proto3";
+import "Commands/stopChargingCommand.proto";
 
-// The greeting service definition.
 service Heartbeat {
-  // Sends a greeting
   rpc SendHeartbeat (HeartbeatMessage) returns (HeartbeatReply) {}
 }
 
-// The request message containing the user's name.
 message HeartbeatMessage {
-  string name = 1;
+  string chargerId = 1;
+  string sessionId = 2;
+  double energyUsed = 3;
+  
+  enum Status {Ready = 0; Busy = 1; Failure = 2;}
 }
 
-// The response message containing the greetings
 message HeartbeatReply {
-  string message = 1;
+  optional StopChargingCommand stopChargingCommand = 1;
 }
+
