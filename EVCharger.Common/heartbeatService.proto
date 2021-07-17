@@ -2,7 +2,7 @@ syntax = "proto3";
 import "Commands/stopChargingCommand.proto";
 
 service Heartbeat {
-  rpc SendHeartbeat (HeartbeatMessage) returns (HeartbeatReply) {}
+  rpc SendHeartbeat (HeartbeatMessage) returns (stream HeartbeatReply) {}
 }
 
 message HeartbeatMessage {
