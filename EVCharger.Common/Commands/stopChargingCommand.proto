@@ -1,4 +1,0 @@
-syntax = "proto3";
-message StopChargingCommand{
-   string sessionId = 1;
-}

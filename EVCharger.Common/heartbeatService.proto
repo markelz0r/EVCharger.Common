@@ -1,5 +1,5 @@
 syntax = "proto3";
-import "Commands/stopChargingCommand.proto";
+import "Commands/Commands.proto";
 
 service Heartbeat {
   rpc SendHeartbeat (HeartbeatMessage) returns (stream HeartbeatReply) {}
@@ -15,5 +15,6 @@ message HeartbeatMessage {
 
 message HeartbeatReply {
   optional StopChargingCommand stopChargingCommand = 1;
+  optional StartChargingCommand startChargingCommand = 2;
 }
 
