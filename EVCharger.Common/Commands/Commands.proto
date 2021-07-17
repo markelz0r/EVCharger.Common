@@ -1,3 +1,5 @@
 syntax = "proto3";
 message StopChargingCommand{}
-message StartChargingCommand{}
+message StartChargingCommand{
+  string userId = 1;
+}
