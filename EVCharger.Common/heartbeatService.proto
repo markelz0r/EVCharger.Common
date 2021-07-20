@@ -7,10 +7,12 @@ service Heartbeat {
 
 message HeartbeatMessage {
   string chargerId = 1;
-  optional string sessionId = 2;
-  optional double energyUsed = 3;
+  Status status = 2;
   
-  enum Status {Ready = 0; Busy = 1; Failure = 2;}
+  optional string sessionId = 3;
+  optional double energyUsed = 4;
+  
+  enum Status {UNKNOWN = 0; READY = 1; BUSY = 2; FAILURE = 3;}
 }
 
 message HeartbeatReply {
