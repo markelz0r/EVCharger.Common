@@ -7,7 +7,7 @@ service Charging {
 
 message ChargingRequest {
   string chargerID = 1;
-  string userID = 2;
+  string RfidCard = 2;
 }
 
 message  ChargingResponse {
