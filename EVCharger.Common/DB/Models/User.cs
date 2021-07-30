@@ -17,6 +17,8 @@ namespace EVCharger.Base.Models.Models
       
       public AccountType AccountType { get; set; }
       
+      public virtual ICollection<RfidCard> RfidCards { get; set; }
+      
       public virtual ICollection<Constellation> Constellations { get; set; }
 
       public override bool Equals(object obj)
