@@ -1,5 +1,6 @@
 ﻿using System;
 using EVCharger.Base.Models.Models;
+using EVCharger.Common.Protobuf;
 using Microsoft.EntityFrameworkCore;
 
 namespace EVCharger.DB
@@ -14,6 +15,6 @@ namespace EVCharger.DB
       protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
          => optionsBuilder
             .UseLazyLoadingProxies()
-            .UseNpgsql($"Host=server.markel.info;Database=EVCharger;Username=evdb;Password={Environment.GetEnvironmentVariable("evdbpass")}");
+            .UseNpgsql(CommonSettings.SqlConnectionString);
    }
 }
