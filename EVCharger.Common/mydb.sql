@@ -1,0 +1,465 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.7 (Ubuntu 12.7-0ubuntu0.20.04.1)
+-- Dumped by pg_dump version 13.3
+
+-- Started on 2021-08-04 21:43:17
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 203 (class 1259 OID 24608)
+-- Name: Chargers; Type: TABLE; Schema: public; Owner: evdb
+--
+
+CREATE TABLE public."Chargers" (
+    "Id" text NOT NULL,
+    "Name" text,
+    "ChargerStatus" integer NOT NULL,
+    "ConstellationId" text
+);
+
+
+ALTER TABLE public."Chargers" OWNER TO evdb;
+
+--
+-- TOC entry 207 (class 1259 OID 24794)
+-- Name: ChargingSessions; Type: TABLE; Schema: public; Owner: evdb
+--
+
+CREATE TABLE public."ChargingSessions" (
+    "Id" text NOT NULL,
+    "StartTime" timestamp without time zone NOT NULL,
+    "EndTime" timestamp without time zone NOT NULL,
+    "ChargerId" text,
+    "UserId" text,
+    "EnergyUsed" double precision[],
+    "Tariff" double precision NOT NULL
+);
+
+
+ALTER TABLE public."ChargingSessions" OWNER TO evdb;
+
+--
+-- TOC entry 206 (class 1259 OID 24755)
+-- Name: ConstellationUser; Type: TABLE; Schema: public; Owner: evdb
+--
+
+CREATE TABLE public."ConstellationUser" (
+    "ConstellationsId" text NOT NULL,
+    "UsersId" text NOT NULL
+);
+
+
+ALTER TABLE public."ConstellationUser" OWNER TO evdb;
+
+--
+-- TOC entry 205 (class 1259 OID 24624)
+-- Name: Constellations; Type: TABLE; Schema: public; Owner: evdb
+--
+
+CREATE TABLE public."Constellations" (
+    "Id" text NOT NULL,
+    "Name" text
+);
+
+
+ALTER TABLE public."Constellations" OWNER TO evdb;
+
+--
+-- TOC entry 208 (class 1259 OID 24820)
+-- Name: RfidCard; Type: TABLE; Schema: public; Owner: evdb
+--
+
+CREATE TABLE public."RfidCard" (
+    "Id" text NOT NULL,
+    "UserId" text
+);
+
+
+ALTER TABLE public."RfidCard" OWNER TO evdb;
+
+--
+-- TOC entry 204 (class 1259 OID 24616)
+-- Name: Users; Type: TABLE; Schema: public; Owner: evdb
+--
+
+CREATE TABLE public."Users" (
+    "Id" text NOT NULL,
+    "Name" text,
+    "Password" text,
+    "Balance" double precision NOT NULL,
+    "AccountType" integer NOT NULL
+);
+
+
+ALTER TABLE public."Users" OWNER TO evdb;
+
+--
+-- TOC entry 202 (class 1259 OID 24603)
+-- Name: __EFMigrationsHistory; Type: TABLE; Schema: public; Owner: evdb
+--
+
+CREATE TABLE public."__EFMigrationsHistory" (
+    "MigrationId" character varying(150) NOT NULL,
+    "ProductVersion" character varying(32) NOT NULL
+);
+
+
+ALTER TABLE public."__EFMigrationsHistory" OWNER TO evdb;
+
+--
+-- TOC entry 2974 (class 0 OID 24608)
+-- Dependencies: 203
+-- Data for Name: Chargers; Type: TABLE DATA; Schema: public; Owner: evdb
+--
+
+COPY public."Chargers" ("Id", "Name", "ChargerStatus", "ConstellationId") FROM stdin;
+d2511010-c11c-4e47-a363-2cb797955776	Charger 2	1	3d5357af-7430-4edc-a2e0-b0a8a346ee31
+c906c88b-f67c-455d-93a7-21471a772f24	Charger 3	1	3d5357af-7430-4edc-a2e0-b0a8a346ee31
+1d76b2a5-ff5c-4654-9199-1df67178da1a	Charger 1	1	3d5357af-7430-4edc-a2e0-b0a8a346ee31
+bd92b98c-7a23-4d86-b494-d8b4dcb74e7e	Charger 4	1	3d5357af-7430-4edc-a2e0-b0a8a346ee31
+\.
+
+
+--
+-- TOC entry 2978 (class 0 OID 24794)
+-- Dependencies: 207
+-- Data for Name: ChargingSessions; Type: TABLE DATA; Schema: public; Owner: evdb
+--
+
+COPY public."ChargingSessions" ("Id", "StartTime", "EndTime", "ChargerId", "UserId", "EnergyUsed", "Tariff") FROM stdin;
+409ec9b3-ddb3-4833-9263-7708c4a18599	2021-07-20 18:06:54.281659	2021-07-20 18:07:54.366549	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{0,2,4,6,8,10}	0
+8ae70971-52c4-47c2-ad69-ca6772496d4f	2021-06-08 20:09:31.454855	2021-06-08 20:13:09.259754	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{100,200,300}	0
+14a786a0-751d-44b8-b7cf-616b5b1b7c67	2021-06-17 22:43:57.213383	0001-01-01 00:00:00	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	0
+04d18bdc-21ab-453b-bae6-b12697ecd9a0	2021-07-04 15:54:11.628362	2021-07-04 15:54:11.702798	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	0
+1ad84d60-d654-4e25-9e69-08a3b1b79233	2021-07-04 15:55:20.691768	0001-01-01 00:00:00	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	0
+2bcf19fa-dd27-4772-967b-82bc0b8bc05c	2021-07-04 15:58:59.403791	2021-07-04 15:58:59.469304	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	0
+71a1bd0c-d7b6-42a4-8289-b2e2b739d53e	2021-07-04 16:02:36.37128	2021-07-04 16:02:36.443	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	0
+8218da49-130a-4ef8-a8a3-ac4519fbd4a7	2021-07-04 16:02:41.169178	2021-07-04 16:02:41.237531	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	0
+6d3c6774-29ee-431d-b31f-2bb35b40d543	2021-07-04 21:21:25.89472	2021-07-04 21:21:25.962044	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	0
+ee890c3b-3601-4f39-b10d-f579e9e679b9	2021-07-17 14:52:27.631542	2021-07-17 14:53:27.723609	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	0
+9ad93311-10f3-454c-a47b-d9139e747c72	2021-07-17 14:55:49.73108	0001-01-01 00:00:00	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	0
+76615bec-224a-4066-89af-714f7fce60d1	2021-07-17 14:57:12.688014	0001-01-01 00:00:00	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	0
+cb07da11-57d4-40b7-aa3c-bd33a3849924	2021-07-17 14:59:04.163233	2021-07-17 15:00:04.333125	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	0
+d318286b-d3cc-4164-9f4e-191252426e45	2021-07-17 15:03:00.89043	2021-07-17 15:04:00.981495	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	0
+ef29b514-f2e0-4ff6-8dce-0486c200732e	2021-07-17 16:55:11.362656	0001-01-01 00:00:00	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	0
+a95ca56c-553f-42d1-bc19-6309a1dc3333	2021-07-17 16:55:48.07311	0001-01-01 00:00:00	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	0
+4f258287-984d-455f-87fb-a9d8d14ab8c3	2021-07-17 16:56:32.960747	0001-01-01 00:00:00	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	0
+aec2e7e6-bff8-4534-9419-7b698f411809	2021-07-17 16:57:57.697758	0001-01-01 00:00:00	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	0
+dc45234a-7aed-4be5-8d54-2892706fdf9c	2021-07-17 16:59:34.802624	0001-01-01 00:00:00	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	0
+ab6b7458-c74d-40ee-b405-823f2f0212c4	2021-07-17 17:00:38.469246	0001-01-01 00:00:00	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	0
+f7ea6271-77a9-4988-b13f-7cdf3d80e7f1	2021-07-17 22:33:06.70077	0001-01-01 00:00:00	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	0
+d49f66b7-3b37-467b-a241-0b6c8f9ff50e	2021-07-17 22:33:15.947256	0001-01-01 00:00:00	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	0
+415a5108-c2d1-4a30-8a08-e178c9fefe40	2021-07-17 22:33:25.958172	0001-01-01 00:00:00	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	0
+48768c23-8b16-4599-a0eb-42f653fd87d7	2021-07-17 22:54:14.169899	2021-07-17 22:55:14.258547	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	0
+02fa4aba-4857-4585-bbaf-ed35a3329517	2021-07-27 19:17:14.388374	2021-07-27 19:17:33.298671	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1,3}	4.5
+6863dbc0-e95b-482d-9c61-d7159a73d53e	2021-07-20 18:34:16.000273	2021-07-20 18:35:16.102954	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1,3,5,7,9,11}	4.5
+91809e20-a733-434a-94a0-bd3ce7a6131b	2021-07-27 22:06:27.153418	2021-07-27 22:06:46.20209	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1,3}	4.5
+75d8b7d9-50c3-4962-a0a8-fcbacb1ffe4d	2021-07-30 23:46:26.377666	0001-01-01 00:00:00	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{0,2,4,6,8,10,12,14,16,18,20,22,24,26}	4.5
+13aa0c6a-9936-4308-84cd-efa46d62eb8e	2021-07-20 18:13:22.403022	2021-07-20 18:14:22.495146	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1,3,5,7,9,11}	4.5
+d73a69c4-17d9-446c-8311-09b24c76734b	2021-07-27 19:19:03.849999	2021-07-27 19:19:32.672797	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1,3,5}	4.5
+970989e7-c262-4d8d-9ac6-0fd62028b5b9	2021-07-20 18:41:14.871189	2021-07-20 18:42:14.96207	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1,3,5,7,9,11}	4.5
+0e1e0483-5da8-4418-a4fb-2f79b3bb866a	2021-07-30 13:53:18.971767	2021-07-30 13:53:28.170757	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1}	4.5
+0920ee02-c088-499a-b7b4-1b32a68df699	2021-07-27 19:35:25.768417	2021-07-27 19:35:35.065281	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1}	4.5
+8f8c9054-a8f8-4726-9e65-6f81d473e486	2021-07-30 14:04:23.380145	2021-07-30 14:05:23.456772	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1,3,5,7,9,11}	4.5
+7e4d6879-e98f-4cd9-9c5d-6a013f0cf3bf	2021-07-30 14:02:47.990625	2021-07-30 14:03:07.319172	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1,3}	4.5
+926237c9-e74f-4787-bd29-20c0d24eecb9	2021-07-30 13:59:51.408779	2021-07-30 14:00:51.658946	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1,3,5,7,9,11}	4.5
+dfb16144-7586-43e5-a26f-9a507ed0b5e2	2021-07-31 00:03:25.363298	0001-01-01 00:00:00	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+7554ceca-40c4-4665-a222-94dfcd2175cb	2021-07-31 00:06:24.578264	2021-07-31 00:07:42.844441	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{0,2,4,6,8,10,12,14}	4.5
+1fe31051-b498-422b-98e0-3a238c1e2885	2021-07-31 00:07:53.481057	2021-07-31 00:09:27.92294	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{0,2,4,6,8,10,12,14,16,18}	4.5
+689f2338-1a13-460f-89e3-5423f47d7c3c	2021-08-01 22:23:39.11875	2021-08-01 22:23:47.120754	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{0}	4.5
+d5d88123-dbde-4a21-b4fc-e04039d947ba	2021-08-02 18:48:14.888857	2021-08-02 18:48:16.074813	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+78aaa021-a831-4859-b523-f6728d9edffa	2021-07-31 23:08:54.589245	2021-07-31 23:08:56.702569	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+8f9a2b6a-c263-43e1-abd4-d571d65135c9	2021-07-31 19:37:43.694438	2021-07-31 19:38:08.428259	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1,3}	4.5
+deede75e-6435-4884-82ca-59bcb86f58da	2021-07-31 18:44:33.174451	2021-07-31 18:46:04.610077	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1,3,5,7,9,11,13,15,17}	4.5
+41f45cbc-4743-41d4-88c7-6419f50d24c3	2021-07-31 00:16:39.827896	2021-07-31 00:18:30.648635	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1,3,5,7,9,11,13,15,17,19,21}	4.5
+8eb5dc94-d54c-438f-9022-d09ecd6c07a8	2021-07-31 16:33:18.506778	2021-07-31 16:36:21.335065	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34}	4.5
+06be69e7-7133-4dc5-a3ee-caaadfbef534	2021-07-31 16:39:37.919237	2021-07-31 16:39:41.724915	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+9129b273-eaf8-4097-aee3-368214bdee79	2021-07-31 16:29:07.666508	2021-07-31 16:30:10.26865	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1,3,5,7,9,11}	4.5
+8aeb5daa-fb54-4b4b-a015-71fed388471e	2021-07-31 19:25:15.34685	2021-07-31 19:25:30.992599	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1}	4.5
+1b23c208-6444-4afc-9468-b3c699a97532	2021-07-31 16:32:27.130497	2021-07-31 16:32:37.657016	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1}	4.5
+1d2336e2-ddfe-45a6-8056-e372aaf2e7c1	2021-07-31 19:25:34.335498	2021-07-31 19:25:38.562647	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+b1c92d24-2320-463e-941d-ef18312e57a0	2021-07-31 19:38:10.748152	2021-07-31 19:38:20.228311	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1}	4.5
+47e81ac3-9b8c-4eef-9d17-26b060826070	2021-07-31 19:25:42.144363	0001-01-01 00:00:00	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{0,2}	4.5
+2c1c9ef9-5a1b-428a-86fa-62a106b47833	2021-07-31 18:37:55.922361	2021-07-31 18:39:37.339501	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1,3,5,7,9,11,13,15,17,19}	4.5
+9f48fe44-6251-45e0-81e7-234cf1474e7b	2021-07-31 19:27:25.890745	2021-07-31 19:27:34.637498	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{0}	4.5
+b90c2ac4-ae0c-457c-8d3a-af14ed365fb9	2021-07-31 19:27:36.614327	2021-07-31 19:27:38.184324	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+ac066bd9-14a3-429a-9465-dc0a76ec69bf	2021-07-31 19:53:22.701959	2021-07-31 19:53:24.949136	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+88fdbf5b-7744-493b-9426-a3eb12048256	2021-07-31 19:29:21.798403	2021-07-31 19:29:29.944657	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1}	4.5
+d789f43d-a172-4e9a-b8cb-81d39f39d251	2021-07-31 21:55:25.183261	2021-07-31 21:55:28.529483	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+5c6a0cc5-210d-4575-acd6-a9a38a48be25	2021-07-31 21:55:33.405668	2021-07-31 21:55:35.690246	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+1e272661-1e32-48c8-95b7-7c60214041c3	2021-07-31 19:31:34.397551	2021-07-31 19:32:10.569637	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{0,2,4,6}	4.5
+3050b73d-388c-4392-a142-e5578a25f0c4	2021-07-31 22:03:39.379456	2021-07-31 22:03:41.976169	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+ce6840d2-5129-4a62-835f-8be1a6714dd3	2021-07-31 22:03:49.067574	2021-07-31 22:03:51.719459	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+76916c5b-60fe-472e-bc96-b45c7a6b87c1	2021-07-31 22:51:58.709293	2021-07-31 22:52:08.005153	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+9512c2d6-8228-4cad-95e7-ac3ef8e67d29	2021-07-31 23:06:00.131751	2021-07-31 23:06:02.421785	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+c5bee52d-eadf-42b4-8201-7772d67ac542	2021-08-01 00:03:27.548639	2021-08-01 00:03:30.145687	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+b44fa025-07b0-415a-b0ba-bd3f4fd7ad22	2021-07-31 23:08:18.936209	2021-07-31 23:08:28.148543	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{0}	4.5
+e0ef9f9d-be39-43bf-a247-18ad1ec9bc0e	2021-07-31 23:09:22.730016	2021-07-31 23:09:27.886499	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{0}	4.5
+141e1386-839d-439d-ae8c-7af0f6f3bda4	2021-07-31 23:09:56.247686	2021-07-31 23:09:58.4962	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+4329f711-3a6a-4a5f-8f6b-a8e0077c5dce	2021-07-31 23:12:54.581177	2021-07-31 23:12:58.11157	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+3ef7c242-6711-4ada-9469-876349e07cfd	2021-07-31 23:13:14.048926	2021-07-31 23:13:54.160134	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1,3,5,7}	4.5
+a47dfb1c-1dc3-41b2-9e43-c800dcbeceb4	2021-07-31 23:21:28.701614	2021-07-31 23:21:31.095366	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+20296e36-6aa5-4060-8797-303e4722334a	2021-07-31 23:37:49.274747	2021-07-31 23:37:51.152132	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+fe5e7fb3-3fbf-4319-bb59-574178314158	2021-07-31 23:37:52.967791	2021-07-31 23:37:54.956962	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+aa9b614c-4607-494a-af66-a7b8cef2e1e8	2021-08-01 17:10:54.865935	2021-08-01 17:11:19.64999	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1,3}	4.5
+52db8338-5d2c-4cb0-87d3-76e18c24489a	2021-08-01 19:47:40.259311	2021-08-01 19:47:42.452257	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+44c2c21a-316a-4bc2-b418-46f7a47ffd53	2021-08-01 19:47:44.051734	2021-08-01 19:47:45.716498	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{0}	4.5
+80cf64c2-785b-47e6-b31a-8a9ac14ec007	2021-08-01 22:18:13.527476	2021-08-01 22:18:22.558314	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{0}	4.5
+6ca023e0-801e-4eac-b173-47f5fdd95ba9	2021-08-01 22:18:41.737713	2021-08-01 22:18:44.01226	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+b3def9bc-678d-498f-b382-77f18cdbec3f	2021-08-01 22:18:26.703523	2021-08-01 22:18:37.703055	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1}	4.5
+a84921b6-fd7d-48a9-bf2f-ca7db3ea3c42	2021-08-02 18:48:10.017533	2021-08-02 18:48:13.307422	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+a1880b78-2a7e-435d-9c40-e712267c685f	2021-08-02 18:48:17.88156	2021-08-02 18:48:19.095724	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+41ae7ad6-081c-4a2b-88c1-23bae0309e02	2021-08-02 19:30:13.912916	2021-08-02 19:30:15.706605	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{0}	4.5
+2c5cce8b-6cd0-4e0d-a805-d6e4b1eef3c2	2021-08-02 20:05:42.550396	2021-08-02 20:05:44.669709	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+997c6ae8-5aa3-43fc-84b8-e8c4bde0352a	2021-08-02 21:21:20.137587	0001-01-01 00:00:00	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+b70b3451-582c-46a3-88e9-e5948fcf1ef8	2021-08-02 21:24:03.294085	2021-08-02 21:24:06.529716	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+8cb81174-5c8e-49a0-8f89-241afad07b49	2021-08-02 21:25:06.211335	2021-08-02 21:25:08.446886	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+469a3989-7a1b-4eab-820f-4924eac30cf9	2021-08-02 21:25:09.983328	2021-08-02 21:25:13.33258	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+a0623130-5824-4bb8-91db-f09315e04759	2021-08-02 21:26:36.44522	2021-08-02 21:26:39.414702	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{0}	4.5
+86d7b3a4-589c-428d-b85a-edbc6bd53347	2021-08-03 21:35:43.737753	2021-08-03 21:35:46.998061	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+\.
+
+
+--
+-- TOC entry 2977 (class 0 OID 24755)
+-- Dependencies: 206
+-- Data for Name: ConstellationUser; Type: TABLE DATA; Schema: public; Owner: evdb
+--
+
+COPY public."ConstellationUser" ("ConstellationsId", "UsersId") FROM stdin;
+3d5357af-7430-4edc-a2e0-b0a8a346ee31	8b7a092d-28f6-4521-89b1-1c613e629ed7
+3d5357af-7430-4edc-a2e0-b0a8a346ee31	fb6825f5-bd3f-4181-9a91-67315e64fda9
+\.
+
+
+--
+-- TOC entry 2976 (class 0 OID 24624)
+-- Dependencies: 205
+-- Data for Name: Constellations; Type: TABLE DATA; Schema: public; Owner: evdb
+--
+
+COPY public."Constellations" ("Id", "Name") FROM stdin;
+3d5357af-7430-4edc-a2e0-b0a8a346ee31	BelarusElectro
+\.
+
+
+--
+-- TOC entry 2979 (class 0 OID 24820)
+-- Dependencies: 208
+-- Data for Name: RfidCard; Type: TABLE DATA; Schema: public; Owner: evdb
+--
+
+COPY public."RfidCard" ("Id", "UserId") FROM stdin;
+0D004B480C02	8b7a092d-28f6-4521-89b1-1c613e629ed7
+\.
+
+
+--
+-- TOC entry 2975 (class 0 OID 24616)
+-- Dependencies: 204
+-- Data for Name: Users; Type: TABLE DATA; Schema: public; Owner: evdb
+--
+
+COPY public."Users" ("Id", "Name", "Password", "Balance", "AccountType") FROM stdin;
+8b7a092d-28f6-4521-89b1-1c613e629ed7	Andrew Odintsov	\N	4320.5	0
+fb6825f5-bd3f-4181-9a91-67315e64fda9	Vladimir Putin	\N	20000000	0
+bc35b3d8-d9c1-44cd-9185-7171bb24088f	Vladimir Putin	\N	20000000	0
+5a17f9a0-c7b4-4217-9089-7937d99f33cf	Boris Johnson	\N	1488	0
+\.
+
+
+--
+-- TOC entry 2973 (class 0 OID 24603)
+-- Dependencies: 202
+-- Data for Name: __EFMigrationsHistory; Type: TABLE DATA; Schema: public; Owner: evdb
+--
+
+COPY public."__EFMigrationsHistory" ("MigrationId", "ProductVersion") FROM stdin;
+20210602202857_InitialCreate	6.0.0-preview.4.21253.1
+20210602214758_AddConstellations	6.0.0-preview.4.21253.1
+20210606202905_AddChargingSession	6.0.0-preview.4.21253.1
+20210608195713_AddEnergyUsed	6.0.0-preview.4.21253.1
+20210730225155_AddRfidCards	6.0.0-preview.4.21253.1
+\.
+
+
+--
+-- TOC entry 2826 (class 2606 OID 24615)
+-- Name: Chargers PK_Chargers; Type: CONSTRAINT; Schema: public; Owner: evdb
+--
+
+ALTER TABLE ONLY public."Chargers"
+    ADD CONSTRAINT "PK_Chargers" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 2837 (class 2606 OID 24801)
+-- Name: ChargingSessions PK_ChargingSessions; Type: CONSTRAINT; Schema: public; Owner: evdb
+--
+
+ALTER TABLE ONLY public."ChargingSessions"
+    ADD CONSTRAINT "PK_ChargingSessions" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 2833 (class 2606 OID 24762)
+-- Name: ConstellationUser PK_ConstellationUser; Type: CONSTRAINT; Schema: public; Owner: evdb
+--
+
+ALTER TABLE ONLY public."ConstellationUser"
+    ADD CONSTRAINT "PK_ConstellationUser" PRIMARY KEY ("ConstellationsId", "UsersId");
+
+
+--
+-- TOC entry 2830 (class 2606 OID 24631)
+-- Name: Constellations PK_Constellations; Type: CONSTRAINT; Schema: public; Owner: evdb
+--
+
+ALTER TABLE ONLY public."Constellations"
+    ADD CONSTRAINT "PK_Constellations" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 2840 (class 2606 OID 24827)
+-- Name: RfidCard PK_RfidCard; Type: CONSTRAINT; Schema: public; Owner: evdb
+--
+
+ALTER TABLE ONLY public."RfidCard"
+    ADD CONSTRAINT "PK_RfidCard" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 2828 (class 2606 OID 24623)
+-- Name: Users PK_Users; Type: CONSTRAINT; Schema: public; Owner: evdb
+--
+
+ALTER TABLE ONLY public."Users"
+    ADD CONSTRAINT "PK_Users" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 2823 (class 2606 OID 24607)
+-- Name: __EFMigrationsHistory PK___EFMigrationsHistory; Type: CONSTRAINT; Schema: public; Owner: evdb
+--
+
+ALTER TABLE ONLY public."__EFMigrationsHistory"
+    ADD CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY ("MigrationId");
+
+
+--
+-- TOC entry 2824 (class 1259 OID 24637)
+-- Name: IX_Chargers_ConstellationId; Type: INDEX; Schema: public; Owner: evdb
+--
+
+CREATE INDEX "IX_Chargers_ConstellationId" ON public."Chargers" USING btree ("ConstellationId");
+
+
+--
+-- TOC entry 2834 (class 1259 OID 24812)
+-- Name: IX_ChargingSessions_ChargerId; Type: INDEX; Schema: public; Owner: evdb
+--
+
+CREATE INDEX "IX_ChargingSessions_ChargerId" ON public."ChargingSessions" USING btree ("ChargerId");
+
+
+--
+-- TOC entry 2835 (class 1259 OID 24813)
+-- Name: IX_ChargingSessions_UserId; Type: INDEX; Schema: public; Owner: evdb
+--
+
+CREATE INDEX "IX_ChargingSessions_UserId" ON public."ChargingSessions" USING btree ("UserId");
+
+
+--
+-- TOC entry 2831 (class 1259 OID 24773)
+-- Name: IX_ConstellationUser_UsersId; Type: INDEX; Schema: public; Owner: evdb
+--
+
+CREATE INDEX "IX_ConstellationUser_UsersId" ON public."ConstellationUser" USING btree ("UsersId");
+
+
+--
+-- TOC entry 2838 (class 1259 OID 24833)
+-- Name: IX_RfidCard_UserId; Type: INDEX; Schema: public; Owner: evdb
+--
+
+CREATE INDEX "IX_RfidCard_UserId" ON public."RfidCard" USING btree ("UserId");
+
+
+--
+-- TOC entry 2841 (class 2606 OID 24640)
+-- Name: Chargers FK_Chargers_Constellations_ConstellationId; Type: FK CONSTRAINT; Schema: public; Owner: evdb
+--
+
+ALTER TABLE ONLY public."Chargers"
+    ADD CONSTRAINT "FK_Chargers_Constellations_ConstellationId" FOREIGN KEY ("ConstellationId") REFERENCES public."Constellations"("Id") ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 2844 (class 2606 OID 24802)
+-- Name: ChargingSessions FK_ChargingSessions_Chargers_ChargerId; Type: FK CONSTRAINT; Schema: public; Owner: evdb
+--
+
+ALTER TABLE ONLY public."ChargingSessions"
+    ADD CONSTRAINT "FK_ChargingSessions_Chargers_ChargerId" FOREIGN KEY ("ChargerId") REFERENCES public."Chargers"("Id") ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 2845 (class 2606 OID 24807)
+-- Name: ChargingSessions FK_ChargingSessions_Users_UserId; Type: FK CONSTRAINT; Schema: public; Owner: evdb
+--
+
+ALTER TABLE ONLY public."ChargingSessions"
+    ADD CONSTRAINT "FK_ChargingSessions_Users_UserId" FOREIGN KEY ("UserId") REFERENCES public."Users"("Id") ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 2842 (class 2606 OID 24763)
+-- Name: ConstellationUser FK_ConstellationUser_Constellations_ConstellationsId; Type: FK CONSTRAINT; Schema: public; Owner: evdb
+--
+
+ALTER TABLE ONLY public."ConstellationUser"
+    ADD CONSTRAINT "FK_ConstellationUser_Constellations_ConstellationsId" FOREIGN KEY ("ConstellationsId") REFERENCES public."Constellations"("Id") ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2843 (class 2606 OID 24768)
+-- Name: ConstellationUser FK_ConstellationUser_Users_UsersId; Type: FK CONSTRAINT; Schema: public; Owner: evdb
+--
+
+ALTER TABLE ONLY public."ConstellationUser"
+    ADD CONSTRAINT "FK_ConstellationUser_Users_UsersId" FOREIGN KEY ("UsersId") REFERENCES public."Users"("Id") ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2846 (class 2606 OID 24828)
+-- Name: RfidCard FK_RfidCard_Users_UserId; Type: FK CONSTRAINT; Schema: public; Owner: evdb
+--
+
+ALTER TABLE ONLY public."RfidCard"
+    ADD CONSTRAINT "FK_RfidCard_Users_UserId" FOREIGN KEY ("UserId") REFERENCES public."Users"("Id") ON DELETE RESTRICT;
+
+
+-- Completed on 2021-08-04 21:43:17
+
+--
+-- PostgreSQL database dump complete
+--
+
