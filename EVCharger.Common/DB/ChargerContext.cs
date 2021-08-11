@@ -1,9 +1,7 @@
-﻿using System;
-using EVCharger.Base.Models.Models;
-using EVCharger.Common.Protobuf;
+﻿using EVCharger.Common.Protobuf.DB.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace EVCharger.DB
+namespace EVCharger.Common.Protobuf.DB
 {
    public class ChargerContext : DbContext
    {

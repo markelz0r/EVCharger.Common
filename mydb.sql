@@ -2,10 +2,10 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 12.7 (Ubuntu 12.7-0ubuntu0.20.04.1)
+-- Dumped from database version 13.3 (Debian 13.3-1.pgdg100+1)
 -- Dumped by pg_dump version 13.3
 
--- Started on 2021-08-04 21:43:17
+-- Started on 2021-08-11 22:24:04
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -23,7 +23,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 203 (class 1259 OID 24608)
+-- TOC entry 200 (class 1259 OID 16385)
 -- Name: Chargers; Type: TABLE; Schema: public; Owner: evdb
 --
 
@@ -38,7 +38,7 @@ CREATE TABLE public."Chargers" (
 ALTER TABLE public."Chargers" OWNER TO evdb;
 
 --
--- TOC entry 207 (class 1259 OID 24794)
+-- TOC entry 201 (class 1259 OID 16391)
 -- Name: ChargingSessions; Type: TABLE; Schema: public; Owner: evdb
 --
 
@@ -56,7 +56,7 @@ CREATE TABLE public."ChargingSessions" (
 ALTER TABLE public."ChargingSessions" OWNER TO evdb;
 
 --
--- TOC entry 206 (class 1259 OID 24755)
+-- TOC entry 202 (class 1259 OID 16397)
 -- Name: ConstellationUser; Type: TABLE; Schema: public; Owner: evdb
 --
 
@@ -69,20 +69,24 @@ CREATE TABLE public."ConstellationUser" (
 ALTER TABLE public."ConstellationUser" OWNER TO evdb;
 
 --
--- TOC entry 205 (class 1259 OID 24624)
+-- TOC entry 203 (class 1259 OID 16403)
 -- Name: Constellations; Type: TABLE; Schema: public; Owner: evdb
 --
 
 CREATE TABLE public."Constellations" (
     "Id" text NOT NULL,
-    "Name" text
+    "Name" text,
+    "DefaultTariff" double precision DEFAULT 0.0 NOT NULL,
+    "MinBalanceToInitiateCharging" double precision DEFAULT 0.0 NOT NULL,
+    "OperationMode" integer DEFAULT 0 NOT NULL,
+    "OverdraftIstAllowed" boolean DEFAULT false NOT NULL
 );
 
 
 ALTER TABLE public."Constellations" OWNER TO evdb;
 
 --
--- TOC entry 208 (class 1259 OID 24820)
+-- TOC entry 204 (class 1259 OID 16409)
 -- Name: RfidCard; Type: TABLE; Schema: public; Owner: evdb
 --
 
@@ -95,7 +99,7 @@ CREATE TABLE public."RfidCard" (
 ALTER TABLE public."RfidCard" OWNER TO evdb;
 
 --
--- TOC entry 204 (class 1259 OID 24616)
+-- TOC entry 205 (class 1259 OID 16415)
 -- Name: Users; Type: TABLE; Schema: public; Owner: evdb
 --
 
@@ -111,7 +115,7 @@ CREATE TABLE public."Users" (
 ALTER TABLE public."Users" OWNER TO evdb;
 
 --
--- TOC entry 202 (class 1259 OID 24603)
+-- TOC entry 206 (class 1259 OID 16421)
 -- Name: __EFMigrationsHistory; Type: TABLE; Schema: public; Owner: evdb
 --
 
@@ -124,22 +128,22 @@ CREATE TABLE public."__EFMigrationsHistory" (
 ALTER TABLE public."__EFMigrationsHistory" OWNER TO evdb;
 
 --
--- TOC entry 2974 (class 0 OID 24608)
--- Dependencies: 203
+-- TOC entry 2990 (class 0 OID 16385)
+-- Dependencies: 200
 -- Data for Name: Chargers; Type: TABLE DATA; Schema: public; Owner: evdb
 --
 
 COPY public."Chargers" ("Id", "Name", "ChargerStatus", "ConstellationId") FROM stdin;
 d2511010-c11c-4e47-a363-2cb797955776	Charger 2	1	3d5357af-7430-4edc-a2e0-b0a8a346ee31
-c906c88b-f67c-455d-93a7-21471a772f24	Charger 3	1	3d5357af-7430-4edc-a2e0-b0a8a346ee31
 1d76b2a5-ff5c-4654-9199-1df67178da1a	Charger 1	1	3d5357af-7430-4edc-a2e0-b0a8a346ee31
 bd92b98c-7a23-4d86-b494-d8b4dcb74e7e	Charger 4	1	3d5357af-7430-4edc-a2e0-b0a8a346ee31
+c906c88b-f67c-455d-93a7-21471a772f24	Charger 3	1	3d5357af-7430-4edc-a2e0-b0a8a346ee31
 \.
 
 
 --
--- TOC entry 2978 (class 0 OID 24794)
--- Dependencies: 207
+-- TOC entry 2991 (class 0 OID 16391)
+-- Dependencies: 201
 -- Data for Name: ChargingSessions; Type: TABLE DATA; Schema: public; Owner: evdb
 --
 
@@ -234,12 +238,26 @@ b70b3451-582c-46a3-88e9-e5948fcf1ef8	2021-08-02 21:24:03.294085	2021-08-02 21:24
 469a3989-7a1b-4eab-820f-4924eac30cf9	2021-08-02 21:25:09.983328	2021-08-02 21:25:13.33258	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
 a0623130-5824-4bb8-91db-f09315e04759	2021-08-02 21:26:36.44522	2021-08-02 21:26:39.414702	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{0}	4.5
 86d7b3a4-589c-428d-b85a-edbc6bd53347	2021-08-03 21:35:43.737753	2021-08-03 21:35:46.998061	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+9c6326d1-974a-4a40-a8ad-5189c1490a8f	2021-08-07 17:55:38.857912	2021-08-07 17:55:41.002068	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+1bfbfa44-7f5f-4f64-9484-8b4b4d2ac856	2021-08-07 17:55:42.689098	2021-08-07 17:55:43.8751	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+70b65f4f-8d48-429a-8178-a11858c0384a	2021-08-07 18:17:47.818345	2021-08-07 18:18:07.340048	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1,3}	4.5
+6bd9a895-5a25-418d-a54d-bb5fe428e42b	2021-08-07 17:55:45.051729	2021-08-07 17:55:46.827299	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{0}	4.5
+76837c1d-f299-4642-81e7-cf70725b10b4	2021-08-07 17:55:48.058154	2021-08-07 17:55:49.31762	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+4f696901-0213-449a-be5e-032bc9c49ecb	2021-08-07 20:43:36.131893	2021-08-07 20:43:42.909534	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+7aad2e06-c91d-440c-a329-211036808ce2	2021-08-07 20:43:45.546378	2021-08-07 20:43:50.476706	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+12f143f4-6efb-4e54-b19d-539f3f970371	2021-08-07 17:58:57.272303	0001-01-01 00:00:00	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{1,3,5,7,9,11}	4.5
+85d11b9b-d626-41c1-9cf9-f983acbaf26d	2021-08-07 18:07:42.040085	2021-08-07 18:07:45.929712	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+048d495d-1c87-4857-a6fe-8c14206dc661	2021-08-11 18:45:37.242616	2021-08-11 18:45:39.514899	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+6ebcc5b6-182d-4522-96d9-8d6e461471ca	2021-08-11 18:45:40.93839	2021-08-11 18:45:41.940808	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	\N	4.5
+7048e79c-257d-444d-968b-7e723b7ad572	2021-08-07 18:13:24.301449	2021-08-07 18:15:45.60064	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{0,2,4,6,8,10,12,14,16,18,20,22,24,26,28}	4.5
+89b8656e-af99-4f53-a3a6-f258b1a28dc0	2021-08-07 18:08:12.514781	2021-08-07 18:09:14.463592	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{0,2,4,6,8,10}	4.5
+bcbf8b0f-6ef5-4d8b-b34f-cb9b6b469d44	2021-08-07 18:16:50.290069	2021-08-07 18:17:19.938166	c906c88b-f67c-455d-93a7-21471a772f24	8b7a092d-28f6-4521-89b1-1c613e629ed7	{0,2,4}	4.5
 \.
 
 
 --
--- TOC entry 2977 (class 0 OID 24755)
--- Dependencies: 206
+-- TOC entry 2992 (class 0 OID 16397)
+-- Dependencies: 202
 -- Data for Name: ConstellationUser; Type: TABLE DATA; Schema: public; Owner: evdb
 --
 
@@ -250,19 +268,19 @@ COPY public."ConstellationUser" ("ConstellationsId", "UsersId") FROM stdin;
 
 
 --
--- TOC entry 2976 (class 0 OID 24624)
--- Dependencies: 205
+-- TOC entry 2993 (class 0 OID 16403)
+-- Dependencies: 203
 -- Data for Name: Constellations; Type: TABLE DATA; Schema: public; Owner: evdb
 --
 
-COPY public."Constellations" ("Id", "Name") FROM stdin;
-3d5357af-7430-4edc-a2e0-b0a8a346ee31	BelarusElectro
+COPY public."Constellations" ("Id", "Name", "DefaultTariff", "MinBalanceToInitiateCharging", "OperationMode", "OverdraftIstAllowed") FROM stdin;
+3d5357af-7430-4edc-a2e0-b0a8a346ee31	BelarusElectro	4.5	100	1	f
 \.
 
 
 --
--- TOC entry 2979 (class 0 OID 24820)
--- Dependencies: 208
+-- TOC entry 2994 (class 0 OID 16409)
+-- Dependencies: 204
 -- Data for Name: RfidCard; Type: TABLE DATA; Schema: public; Owner: evdb
 --
 
@@ -272,22 +290,22 @@ COPY public."RfidCard" ("Id", "UserId") FROM stdin;
 
 
 --
--- TOC entry 2975 (class 0 OID 24616)
--- Dependencies: 204
+-- TOC entry 2995 (class 0 OID 16415)
+-- Dependencies: 205
 -- Data for Name: Users; Type: TABLE DATA; Schema: public; Owner: evdb
 --
 
 COPY public."Users" ("Id", "Name", "Password", "Balance", "AccountType") FROM stdin;
-8b7a092d-28f6-4521-89b1-1c613e629ed7	Andrew Odintsov	\N	4320.5	0
 fb6825f5-bd3f-4181-9a91-67315e64fda9	Vladimir Putin	\N	20000000	0
 bc35b3d8-d9c1-44cd-9185-7171bb24088f	Vladimir Putin	\N	20000000	0
 5a17f9a0-c7b4-4217-9089-7937d99f33cf	Boris Johnson	\N	1488	0
+8b7a092d-28f6-4521-89b1-1c613e629ed7	Andrew Odintsov	\N	15000	0
 \.
 
 
 --
--- TOC entry 2973 (class 0 OID 24603)
--- Dependencies: 202
+-- TOC entry 2996 (class 0 OID 16421)
+-- Dependencies: 206
 -- Data for Name: __EFMigrationsHistory; Type: TABLE DATA; Schema: public; Owner: evdb
 --
 
@@ -297,11 +315,12 @@ COPY public."__EFMigrationsHistory" ("MigrationId", "ProductVersion") FROM stdin
 20210606202905_AddChargingSession	6.0.0-preview.4.21253.1
 20210608195713_AddEnergyUsed	6.0.0-preview.4.21253.1
 20210730225155_AddRfidCards	6.0.0-preview.4.21253.1
+20210811212001_AddOperationalProperties	6.0.0-preview.4.21253.1
 \.
 
 
 --
--- TOC entry 2826 (class 2606 OID 24615)
+-- TOC entry 2837 (class 2606 OID 16425)
 -- Name: Chargers PK_Chargers; Type: CONSTRAINT; Schema: public; Owner: evdb
 --
 
@@ -310,7 +329,7 @@ ALTER TABLE ONLY public."Chargers"
 
 
 --
--- TOC entry 2837 (class 2606 OID 24801)
+-- TOC entry 2841 (class 2606 OID 16427)
 -- Name: ChargingSessions PK_ChargingSessions; Type: CONSTRAINT; Schema: public; Owner: evdb
 --
 
@@ -319,7 +338,7 @@ ALTER TABLE ONLY public."ChargingSessions"
 
 
 --
--- TOC entry 2833 (class 2606 OID 24762)
+-- TOC entry 2844 (class 2606 OID 16429)
 -- Name: ConstellationUser PK_ConstellationUser; Type: CONSTRAINT; Schema: public; Owner: evdb
 --
 
@@ -328,7 +347,7 @@ ALTER TABLE ONLY public."ConstellationUser"
 
 
 --
--- TOC entry 2830 (class 2606 OID 24631)
+-- TOC entry 2846 (class 2606 OID 16431)
 -- Name: Constellations PK_Constellations; Type: CONSTRAINT; Schema: public; Owner: evdb
 --
 
@@ -337,7 +356,7 @@ ALTER TABLE ONLY public."Constellations"
 
 
 --
--- TOC entry 2840 (class 2606 OID 24827)
+-- TOC entry 2849 (class 2606 OID 16433)
 -- Name: RfidCard PK_RfidCard; Type: CONSTRAINT; Schema: public; Owner: evdb
 --
 
@@ -346,7 +365,7 @@ ALTER TABLE ONLY public."RfidCard"
 
 
 --
--- TOC entry 2828 (class 2606 OID 24623)
+-- TOC entry 2851 (class 2606 OID 16435)
 -- Name: Users PK_Users; Type: CONSTRAINT; Schema: public; Owner: evdb
 --
 
@@ -355,7 +374,7 @@ ALTER TABLE ONLY public."Users"
 
 
 --
--- TOC entry 2823 (class 2606 OID 24607)
+-- TOC entry 2853 (class 2606 OID 16437)
 -- Name: __EFMigrationsHistory PK___EFMigrationsHistory; Type: CONSTRAINT; Schema: public; Owner: evdb
 --
 
@@ -364,7 +383,7 @@ ALTER TABLE ONLY public."__EFMigrationsHistory"
 
 
 --
--- TOC entry 2824 (class 1259 OID 24637)
+-- TOC entry 2835 (class 1259 OID 16438)
 -- Name: IX_Chargers_ConstellationId; Type: INDEX; Schema: public; Owner: evdb
 --
 
@@ -372,7 +391,7 @@ CREATE INDEX "IX_Chargers_ConstellationId" ON public."Chargers" USING btree ("Co
 
 
 --
--- TOC entry 2834 (class 1259 OID 24812)
+-- TOC entry 2838 (class 1259 OID 16439)
 -- Name: IX_ChargingSessions_ChargerId; Type: INDEX; Schema: public; Owner: evdb
 --
 
@@ -380,7 +399,7 @@ CREATE INDEX "IX_ChargingSessions_ChargerId" ON public."ChargingSessions" USING 
 
 
 --
--- TOC entry 2835 (class 1259 OID 24813)
+-- TOC entry 2839 (class 1259 OID 16440)
 -- Name: IX_ChargingSessions_UserId; Type: INDEX; Schema: public; Owner: evdb
 --
 
@@ -388,7 +407,7 @@ CREATE INDEX "IX_ChargingSessions_UserId" ON public."ChargingSessions" USING btr
 
 
 --
--- TOC entry 2831 (class 1259 OID 24773)
+-- TOC entry 2842 (class 1259 OID 16441)
 -- Name: IX_ConstellationUser_UsersId; Type: INDEX; Schema: public; Owner: evdb
 --
 
@@ -396,7 +415,7 @@ CREATE INDEX "IX_ConstellationUser_UsersId" ON public."ConstellationUser" USING 
 
 
 --
--- TOC entry 2838 (class 1259 OID 24833)
+-- TOC entry 2847 (class 1259 OID 16442)
 -- Name: IX_RfidCard_UserId; Type: INDEX; Schema: public; Owner: evdb
 --
 
@@ -404,7 +423,7 @@ CREATE INDEX "IX_RfidCard_UserId" ON public."RfidCard" USING btree ("UserId");
 
 
 --
--- TOC entry 2841 (class 2606 OID 24640)
+-- TOC entry 2854 (class 2606 OID 16443)
 -- Name: Chargers FK_Chargers_Constellations_ConstellationId; Type: FK CONSTRAINT; Schema: public; Owner: evdb
 --
 
@@ -413,7 +432,7 @@ ALTER TABLE ONLY public."Chargers"
 
 
 --
--- TOC entry 2844 (class 2606 OID 24802)
+-- TOC entry 2855 (class 2606 OID 16448)
 -- Name: ChargingSessions FK_ChargingSessions_Chargers_ChargerId; Type: FK CONSTRAINT; Schema: public; Owner: evdb
 --
 
@@ -422,7 +441,7 @@ ALTER TABLE ONLY public."ChargingSessions"
 
 
 --
--- TOC entry 2845 (class 2606 OID 24807)
+-- TOC entry 2856 (class 2606 OID 16453)
 -- Name: ChargingSessions FK_ChargingSessions_Users_UserId; Type: FK CONSTRAINT; Schema: public; Owner: evdb
 --
 
@@ -431,7 +450,7 @@ ALTER TABLE ONLY public."ChargingSessions"
 
 
 --
--- TOC entry 2842 (class 2606 OID 24763)
+-- TOC entry 2857 (class 2606 OID 16458)
 -- Name: ConstellationUser FK_ConstellationUser_Constellations_ConstellationsId; Type: FK CONSTRAINT; Schema: public; Owner: evdb
 --
 
@@ -440,7 +459,7 @@ ALTER TABLE ONLY public."ConstellationUser"
 
 
 --
--- TOC entry 2843 (class 2606 OID 24768)
+-- TOC entry 2858 (class 2606 OID 16463)
 -- Name: ConstellationUser FK_ConstellationUser_Users_UsersId; Type: FK CONSTRAINT; Schema: public; Owner: evdb
 --
 
@@ -449,7 +468,7 @@ ALTER TABLE ONLY public."ConstellationUser"
 
 
 --
--- TOC entry 2846 (class 2606 OID 24828)
+-- TOC entry 2859 (class 2606 OID 16468)
 -- Name: RfidCard FK_RfidCard_Users_UserId; Type: FK CONSTRAINT; Schema: public; Owner: evdb
 --
 
@@ -457,7 +476,7 @@ ALTER TABLE ONLY public."RfidCard"
     ADD CONSTRAINT "FK_RfidCard_Users_UserId" FOREIGN KEY ("UserId") REFERENCES public."Users"("Id") ON DELETE RESTRICT;
 
 
--- Completed on 2021-08-04 21:43:17
+-- Completed on 2021-08-11 22:24:05
 
 --
 -- PostgreSQL database dump complete

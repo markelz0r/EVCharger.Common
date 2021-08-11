@@ -1,4 +1,4 @@
-﻿namespace EVCharger.Base.Models.Models
+﻿namespace EVCharger.Common.Protobuf.DB.Models
 {
    public class RfidCard
    {

@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using EVCharger.Base.Models.Enums;
+
 // ReSharper disable NonReadonlyMemberInGetHashCode
 
-namespace EVCharger.Base.Models.Models
+namespace EVCharger.Common.Protobuf.DB.Models
 {
    public class User
    {

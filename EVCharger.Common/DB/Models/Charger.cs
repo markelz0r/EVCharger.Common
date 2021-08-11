@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using EVCharger.Common.Protobuf;
 
-namespace EVCharger.Base.Models.Models
+namespace EVCharger.Common.Protobuf.DB.Models
 {
    public class Charger
    {
